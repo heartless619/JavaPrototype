@@ -17,7 +17,7 @@ public class SmartAttacker implements Player, Cloneable {
     Piece myPiece;
     String name;
     boolean firstMove = true;
-    private static final int SIZE = 18;     // size of the board
+    private static final int BOARD_SIZE = 18;     // BOARD_SIZE of the board
     private static final int FIVE_IN_A_ROW = 5;
     
     /** Creates a new instance of SmartOpponent */
@@ -57,9 +57,9 @@ public class SmartAttacker implements Player, Cloneable {
         int returnedVerticalCoordinate = 0;
         
         	// algorithm to decide where to make next move 
-        	for(int i=0;i<SIZE;i++)
+        	for(int i=0;i<BOARD_SIZE;i++)
         	{
-        		for(int j=0;j<SIZE;j++)
+        		for(int j=0;j<BOARD_SIZE;j++)
         		{
 
         			if( board[i][j] == null)
@@ -101,7 +101,7 @@ public class SmartAttacker implements Player, Cloneable {
     	for(int i= 0; i<numberOfNeighbors; i++)
     	{
     		xTemporaryValue += 1; 
-    		if( xTemporaryValue >= SIZE)
+    		if( xTemporaryValue >= BOARD_SIZE)
     		{
     			// out of the border of the board
     			break;      
@@ -167,7 +167,7 @@ public class SmartAttacker implements Player, Cloneable {
     	for(int i=0; i<numberOfNeighbors; i++)
     	{
     		yTemporaryValue += 1;
-    		if(yTemporaryValue >= SIZE )
+    		if(yTemporaryValue >= BOARD_SIZE )
     		{
     			break;
     		}
@@ -213,7 +213,7 @@ public class SmartAttacker implements Player, Cloneable {
     	{
     		xTemporaryValue += 1;
     		yTemporaryValue += 1;
-    		if(yTemporaryValue>=SIZE || xTemporaryValue>=SIZE )
+    		if(yTemporaryValue>=BOARD_SIZE || xTemporaryValue>=BOARD_SIZE )
     		{
     			break;
     		}
@@ -239,7 +239,7 @@ public class SmartAttacker implements Player, Cloneable {
     	{
     		xTemporaryValue += 1;
     		yTemporaryValue -= 1;
-    		if(yTemporaryValue<0 || xTemporaryValue>=SIZE )
+    		if(yTemporaryValue<0 || xTemporaryValue>=BOARD_SIZE )
     		{
     			break;
     		}
@@ -259,7 +259,7 @@ public class SmartAttacker implements Player, Cloneable {
     	{
     		xTemporaryValue -= 1;
     		yTemporaryValue += 1;
-    		if(yTemporaryValue>=SIZE || xTemporaryValue<0 )
+    		if(yTemporaryValue>=BOARD_SIZE || xTemporaryValue<0 )
     		{
     			break;
     		}
@@ -281,9 +281,9 @@ public class SmartAttacker implements Player, Cloneable {
     }
     
     public boolean checkIfFirstMove(Piece[][] board, Piece mySide){
-    	for(int i=0;i<SIZE;i++)
+    	for(int i=0;i<BOARD_SIZE;i++)
     	{
-    		for(int j=0;j<SIZE;j++)
+    		for(int j=0;j<BOARD_SIZE;j++)
     		{
     			if( board[i][j] == mySide )
     			{
