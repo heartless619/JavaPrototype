@@ -50,10 +50,10 @@ public class SmartAttacker implements Player, Cloneable {
     			return randomMove(board.clone(), lastPosition );	    		
 			}
     	}
-        int max_my_piece = 0;
-        int max_temp = 0;
-        int returned_x = 0;
-        int returned_y = 0;
+        int maxMyPiece = 0;
+        int maxTemp = 0;
+        int returnedHorizontalCoordinate = 0;
+        int returnedVerticalCoordinate = 0;
         
         	// algorithm to decide where to make next move 
         	for(int i=0;i<SIZE;i++)
@@ -64,13 +64,13 @@ public class SmartAttacker implements Player, Cloneable {
         			if( board[i][j] == null)
         			{
         				// check its neighboring positions, how many play's pieces are connected
-        				max_my_piece = checkMaxValue(i,j,board.clone(),getSide());
+        				maxMyPiece = checkMaxValue(i,j,board.clone(),getSide());
         				
-        				if(max_my_piece >= max_temp)
+        				if(maxMyPiece >= maxTemp)
         				{
-        					max_temp = max_my_piece;
-        					returned_x = i;
-        					returned_y = j;
+        					maxTemp = maxMyPiece;
+        					returnedHorizontalCoordinate = i;
+        					returnedVerticalCoordinate = j;
         				}
         				
         			}
@@ -81,7 +81,7 @@ public class SmartAttacker implements Player, Cloneable {
                        
             // end of algorithm
 
-            return new ArenaPosition(returned_x, returned_y);
+            return new ArenaPosition(returnedHorizontalCoordinate, returnedVerticalCoordinate);
 
       
     }
@@ -91,24 +91,24 @@ public class SmartAttacker implements Player, Cloneable {
     }
 
     public int checkMaxValue(int x, int y, Piece[][] board, Piece cross_or_round){
-    	int number_of_neighbors = 5;
+    	int numberOfNeighbors = 5;
     	int FIVE_IN_A_ROW = 5;
-    	int number_of_connected = 0, max_num, max_temp=0;
-    	int x_tmp=x,y_tmp=y;
-    	int x_temp1=x_tmp,y_temp1=y_tmp;
+    	int numberOfConnected = 0, maxNumber, maxTemp=0;
+    	int xCoordinateTemp=x,yCoordinateTemp=y;
+    	int xTemporaryValue=xCoordinateTemp,yTemporaryValue=yCoordinateTemp;
     	// check horizontal direction, how many connected marks
     	// right side
-    	for(int i= 0; i<number_of_neighbors; i++)
+    	for(int i= 0; i<numberOfNeighbors; i++)
     	{
-    		x_temp1 += 1; 
-    		if( x_temp1 >= SIZE)
+    		xTemporaryValue += 1; 
+    		if( xTemporaryValue >= SIZE)
     		{
     			// out of the border of the board
     			break;      
     		}
-    		if( board[x_temp1][y_temp1] == cross_or_round)
+    		if( board[xTemporaryValue][yTemporaryValue] == cross_or_round)
     		{
-    			number_of_connected++;
+    			numberOfConnected++;
     		}
     		else
     		{
@@ -116,45 +116,45 @@ public class SmartAttacker implements Player, Cloneable {
     		}
     	}
     	// left side
-    	x_temp1=x_tmp; // reset the x_temp1 as x
-    	for(int i=0; i<number_of_neighbors; i++)
+    	xTemporaryValue=xCoordinateTemp; // reset the xTemporaryValue as x
+    	for(int i=0; i<numberOfNeighbors; i++)
     	{
-    		x_temp1 -= 1;
-    		if( x_temp1 < 0)
+    		xTemporaryValue -= 1;
+    		if( xTemporaryValue < 0)
     		{
     			// out of the border of the board
     			break;         
     		}
-    		if( board[x_temp1][y_temp1] == cross_or_round)
+    		if( board[xTemporaryValue][yTemporaryValue] == cross_or_round)
     		{
-    			number_of_connected++;
+    			numberOfConnected++;
     		}
     		else
     		{
     			break;
     		}
     	}
-    	if(number_of_connected<FIVE_IN_A_ROW)
+    	if(numberOfConnected<FIVE_IN_A_ROW)
     	{    		
-    		max_temp = number_of_connected;
+    		maxTemp = numberOfConnected;
     	}
     	
     	// check vertical direction, how many connected marks
     	// upward side
     		// 	reset
-    	x_temp1 = x_tmp; 	
-    	y_temp1 = y_tmp; 	
-    	number_of_connected = 0;   
-    	for(int i=0; i<number_of_neighbors; i++)
+    	xTemporaryValue = xCoordinateTemp; 	
+    	yTemporaryValue = yCoordinateTemp; 	
+    	numberOfConnected = 0;   
+    	for(int i=0; i<numberOfNeighbors; i++)
     	{
-    		y_temp1-=1;
-    		if(y_temp1<0)
+    		yTemporaryValue-=1;
+    		if(yTemporaryValue<0)
     		{
     			break;
     		}
-    		if(board[x_temp1][y_temp1]== cross_or_round)
+    		if(board[xTemporaryValue][yTemporaryValue]== cross_or_round)
     		{
-    			number_of_connected++;
+    			numberOfConnected++;
     		}
     		else
     		{
@@ -163,43 +163,43 @@ public class SmartAttacker implements Player, Cloneable {
     	}
     	// downward side 
     		// reset
-    	y_temp1 = y_tmp;
-    	for(int i=0; i<number_of_neighbors; i++)
+    	yTemporaryValue = yCoordinateTemp;
+    	for(int i=0; i<numberOfNeighbors; i++)
     	{
-    		y_temp1 += 1;
-    		if(y_temp1 >= SIZE )
+    		yTemporaryValue += 1;
+    		if(yTemporaryValue >= SIZE )
     		{
     			break;
     		}
-    		if(board[x_temp1][y_temp1]== cross_or_round)
+    		if(board[xTemporaryValue][yTemporaryValue]== cross_or_round)
     		{
-    			number_of_connected++;
+    			numberOfConnected++;
     		}
     		else
     		{
     			break;
     		}
     	}
-    	if(number_of_connected>max_temp & number_of_connected<FIVE_IN_A_ROW )
+    	if(numberOfConnected>maxTemp & numberOfConnected<FIVE_IN_A_ROW )
     	{
-    		max_temp = number_of_connected;
+    		maxTemp = numberOfConnected;
     	}
     	// check backward slash direction ("\"), how many connected marks
     	// up left direction
-    	x_temp1 = x_tmp;
-    	y_temp1 = y_tmp;
-    	number_of_connected = 0;
-    	for(int i=0; i<number_of_neighbors; i++)
+    	xTemporaryValue = xCoordinateTemp;
+    	yTemporaryValue = yCoordinateTemp;
+    	numberOfConnected = 0;
+    	for(int i=0; i<numberOfNeighbors; i++)
     	{
-    		x_temp1 -= 1;
-    		y_temp1 -= 1;
-    		if(y_temp1<0 || x_temp1<0 )
+    		xTemporaryValue -= 1;
+    		yTemporaryValue -= 1;
+    		if(yTemporaryValue<0 || xTemporaryValue<0 )
     		{
     			break;
     		}
-    		if(board[x_temp1][y_temp1] == cross_or_round)
+    		if(board[xTemporaryValue][yTemporaryValue] == cross_or_round)
     		{
-    			number_of_connected++;
+    			numberOfConnected++;
     		}
     		else
     		{
@@ -207,45 +207,45 @@ public class SmartAttacker implements Player, Cloneable {
     		}
     	}
     	// down right direction
-    	x_temp1 = x_tmp;
-    	y_temp1 = y_tmp;    	
-    	for(int i=0; i<number_of_neighbors; i++)
+    	xTemporaryValue = xCoordinateTemp;
+    	yTemporaryValue = yCoordinateTemp;    	
+    	for(int i=0; i<numberOfNeighbors; i++)
     	{
-    		x_temp1 += 1;
-    		y_temp1 += 1;
-    		if(y_temp1>=SIZE || x_temp1>=SIZE )
+    		xTemporaryValue += 1;
+    		yTemporaryValue += 1;
+    		if(yTemporaryValue>=SIZE || xTemporaryValue>=SIZE )
     		{
     			break;
     		}
-    		if(board[x_temp1][y_temp1] == cross_or_round)
+    		if(board[xTemporaryValue][yTemporaryValue] == cross_or_round)
     		{
-    			number_of_connected++;
+    			numberOfConnected++;
     		}
     		else
     		{
     			break;
     		}
     	}
-    	if(number_of_connected>max_temp & number_of_connected<FIVE_IN_A_ROW )
+    	if(numberOfConnected>maxTemp & numberOfConnected<FIVE_IN_A_ROW )
     	{
-    		max_temp = number_of_connected;
+    		maxTemp = numberOfConnected;
     	}
     	// check forward slash direction ("/"), how many connected marks
     	// up right direction
-    	x_temp1 = x_tmp;
-    	y_temp1 = y_tmp;
-    	number_of_connected = 0;
-    	for(int i=0; i<number_of_neighbors; i++)
+    	xTemporaryValue = xCoordinateTemp;
+    	yTemporaryValue = yCoordinateTemp;
+    	numberOfConnected = 0;
+    	for(int i=0; i<numberOfNeighbors; i++)
     	{
-    		x_temp1 += 1;
-    		y_temp1 -= 1;
-    		if(y_temp1<0 || x_temp1>=SIZE )
+    		xTemporaryValue += 1;
+    		yTemporaryValue -= 1;
+    		if(yTemporaryValue<0 || xTemporaryValue>=SIZE )
     		{
     			break;
     		}
-    		if(board[x_temp1][y_temp1] == cross_or_round)
+    		if(board[xTemporaryValue][yTemporaryValue] == cross_or_round)
     		{
-    			number_of_connected++;
+    			numberOfConnected++;
     		}
     		else
     		{
@@ -253,31 +253,31 @@ public class SmartAttacker implements Player, Cloneable {
     		}
     	}
     	// down left direction
-    	x_temp1 = x_tmp;
-    	y_temp1 = y_tmp;    	
-    	for(int i=0; i<number_of_neighbors; i++)
+    	xTemporaryValue = xCoordinateTemp;
+    	yTemporaryValue = yCoordinateTemp;    	
+    	for(int i=0; i<numberOfNeighbors; i++)
     	{
-    		x_temp1 -= 1;
-    		y_temp1 += 1;
-    		if(y_temp1>=SIZE || x_temp1<0 )
+    		xTemporaryValue -= 1;
+    		yTemporaryValue += 1;
+    		if(yTemporaryValue>=SIZE || xTemporaryValue<0 )
     		{
     			break;
     		}
-    		if(board[x_temp1][y_temp1] == cross_or_round)
+    		if(board[xTemporaryValue][yTemporaryValue] == cross_or_round)
     		{
-    			number_of_connected++;
+    			numberOfConnected++;
     		}
     		else
     		{
     			break;
     		}
     	}
-    	if(number_of_connected>max_temp & number_of_connected<FIVE_IN_A_ROW )
+    	if(numberOfConnected>maxTemp & numberOfConnected<FIVE_IN_A_ROW )
     	{
-    		max_temp = number_of_connected;
+    		maxTemp = numberOfConnected;
     	}
-    	max_num = max_temp;
-    	return max_num;
+    	maxNumber = maxTemp;
+    	return maxNumber;
     }
     
     public boolean checkIfFirstMove(Piece[][] board, Piece my_side){
