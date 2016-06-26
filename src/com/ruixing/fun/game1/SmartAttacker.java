@@ -18,6 +18,7 @@ public class SmartAttacker implements Player, Cloneable {
     String name;
     boolean firstMove = true;
     private static final int SIZE = 18;     // size of the board
+    private static final int FIVE_IN_A_ROW = 5;
     
     /** Creates a new instance of SmartOpponent */
     public SmartAttacker(String name) {
@@ -90,9 +91,8 @@ public class SmartAttacker implements Player, Cloneable {
         return getName();
     }
 
-    public int checkMaxValue(int x, int y, Piece[][] board, Piece cross_or_round){
+    public int checkMaxValue(int x, int y, Piece[][] board, Piece crossOrRound){
     	int numberOfNeighbors = 5;
-    	int FIVE_IN_A_ROW = 5;
     	int numberOfConnected = 0, maxNumber, maxTemp=0;
     	int xCoordinateTemp=x,yCoordinateTemp=y;
     	int xTemporaryValue=xCoordinateTemp,yTemporaryValue=yCoordinateTemp;
@@ -106,7 +106,7 @@ public class SmartAttacker implements Player, Cloneable {
     			// out of the border of the board
     			break;      
     		}
-    		if( board[xTemporaryValue][yTemporaryValue] == cross_or_round)
+    		if( board[xTemporaryValue][yTemporaryValue] == crossOrRound)
     		{
     			numberOfConnected++;
     		}
@@ -125,7 +125,7 @@ public class SmartAttacker implements Player, Cloneable {
     			// out of the border of the board
     			break;         
     		}
-    		if( board[xTemporaryValue][yTemporaryValue] == cross_or_round)
+    		if( board[xTemporaryValue][yTemporaryValue] == crossOrRound)
     		{
     			numberOfConnected++;
     		}
@@ -152,7 +152,7 @@ public class SmartAttacker implements Player, Cloneable {
     		{
     			break;
     		}
-    		if(board[xTemporaryValue][yTemporaryValue]== cross_or_round)
+    		if(board[xTemporaryValue][yTemporaryValue]== crossOrRound)
     		{
     			numberOfConnected++;
     		}
@@ -171,7 +171,7 @@ public class SmartAttacker implements Player, Cloneable {
     		{
     			break;
     		}
-    		if(board[xTemporaryValue][yTemporaryValue]== cross_or_round)
+    		if(board[xTemporaryValue][yTemporaryValue]== crossOrRound)
     		{
     			numberOfConnected++;
     		}
@@ -197,7 +197,7 @@ public class SmartAttacker implements Player, Cloneable {
     		{
     			break;
     		}
-    		if(board[xTemporaryValue][yTemporaryValue] == cross_or_round)
+    		if(board[xTemporaryValue][yTemporaryValue] == crossOrRound)
     		{
     			numberOfConnected++;
     		}
@@ -217,7 +217,7 @@ public class SmartAttacker implements Player, Cloneable {
     		{
     			break;
     		}
-    		if(board[xTemporaryValue][yTemporaryValue] == cross_or_round)
+    		if(board[xTemporaryValue][yTemporaryValue] == crossOrRound)
     		{
     			numberOfConnected++;
     		}
@@ -243,7 +243,7 @@ public class SmartAttacker implements Player, Cloneable {
     		{
     			break;
     		}
-    		if(board[xTemporaryValue][yTemporaryValue] == cross_or_round)
+    		if(board[xTemporaryValue][yTemporaryValue] == crossOrRound)
     		{
     			numberOfConnected++;
     		}
@@ -263,7 +263,7 @@ public class SmartAttacker implements Player, Cloneable {
     		{
     			break;
     		}
-    		if(board[xTemporaryValue][yTemporaryValue] == cross_or_round)
+    		if(board[xTemporaryValue][yTemporaryValue] == crossOrRound)
     		{
     			numberOfConnected++;
     		}
@@ -280,12 +280,12 @@ public class SmartAttacker implements Player, Cloneable {
     	return maxNumber;
     }
     
-    public boolean checkIfFirstMove(Piece[][] board, Piece my_side){
+    public boolean checkIfFirstMove(Piece[][] board, Piece mySide){
     	for(int i=0;i<SIZE;i++)
     	{
     		for(int j=0;j<SIZE;j++)
     		{
-    			if( board[i][j] == my_side )
+    			if( board[i][j] == mySide )
     			{
     				// not the first move, return false
     				return false;
